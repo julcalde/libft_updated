@@ -6,7 +6,7 @@
 /*   By: julcalde <julcalde@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 14:31:38 by julcalde          #+#    #+#             */
-/*   Updated: 2024/12/15 18:16:57 by julcalde         ###   ########.fr       */
+/*   Updated: 2025/01/12 19:05:20 by julcalde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@
 # include <unistd.h>
 # include <fcntl.h>
 
-# define BUFF_SIZE 42
+# include "ft_printf.h"
+# include "get_next_line.h"
+
 
 // Character functions
 int		ft_isalnum(int x);
