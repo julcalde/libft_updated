@@ -1,3 +1,4 @@
+# Variables
 NAME = libft.a
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
@@ -14,25 +15,44 @@ SRCS =			ft_isalnum.c ft_isalpha.c ft_isdigit.c ft_isascii.c \
 				ft_charcheck.c ft_numcheck.c ft_printf.c \
 				get_next_line.c get_next_line_utils.c
 
-HEADER  =		libft.h \
-				ft_printf.h \
-				get_next_line.h
+# ---------- COLORS AND STUFF ---------- #
+GREEN = \033[0;32m
+RED = \033[0;31m
+YELLOW = \033[0;33m
+CYAN = \033[0;36m
+NC = \033[0m
+CLEAR_LINE = \033[2K\r
 
-OBJS =			$(SRCS:.c=.o)
+TOTAL_SRCS = $(words $(SRCS))
+CURRENT = 0
+
+# Object files
+OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
+	@true
+
+# Rule to compile the main library
 $(NAME): $(OBJS)
-		ar rcs $(NAME) $(OBJS)
+	@ar rcs $(NAME) $(OBJS)
 
-%.o: %.c $(HEADER)	
-		$(CC) $(CFLAGS) -c $< -o $@
+# Object file compilation rule
+.c.o:
+	@$(eval CURRENT := $(shell echo $$(($(CURRENT) + 1))))
+	@$(eval PERCENT := $(shell echo $$(($(CURRENT) * 100 / $(TOTAL_SRCS)))))
+	@printf "$(CLEAR_LINE)$(YELLOW)🚧 Compiling $(PERCENT)%% [$(CURRENT)/$(TOTAL_SRCS)] $(CYAN)$<$(NC) 🚧"
+	@$(CC) $(CFLAGS) -c $< -o $@
 
+# Clean object files and libraries
 clean:
-		rm -f $(OBJS)
+	@rm -f $(OBJS)
 
+# Clean all generated files
 fclean: clean
-		rm -f $(NAME)
+	@rm -f $(NAME)
 
+# Rebuild everything
 re: fclean all
 
+# Phony targets
 .PHONY: all clean fclean re
